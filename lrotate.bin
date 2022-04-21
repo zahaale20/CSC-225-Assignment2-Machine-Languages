@@ -1,0 +1,20 @@
+; ALEX ZAHARIA
+; Left-rotates the bits of the value at 0x3050 once.
+; CSC 225, Assignment 2
+; Given code, Winter '20
+
+
+0011 0000 0000 0000     ; Start at 0x3000
+0101 011 000 1 00000    ; Clear R3
+0101 100 000 1 00000    ; Clear R4
+0101 101 000 1 00000    ; Clear R5
+0010 011 001001100      ; Load into R3, 0x3050
+1110 111 001001011      ; LEA R7 0x3050
+0000 100 000000001      ; BR N #2
+0001 100 011 000 011    ; Add into R4, R3 and R3
+1110 111 001001000      ; LEA R7 0x3050 to reset BR register
+0000 011 000000010      ; BR ZP #3
+0001 100 011 000 011    ; Add into R4, R3 and R3
+0001 100 100 1 00001    ; Add into R4, R7 and #1
+0111 100 111 000001     ; STR R4, R7, #1 --> memory(R7 + 1) = R4
+1111 0000 0010 0101     ; Halt
